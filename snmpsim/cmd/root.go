@@ -2,12 +2,11 @@ package cmd
 
 import (
 	"fmt"
-	"os"
-	"strings"
-
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
+	"os"
+	"strings"
 
 	"github.com/spf13/viper"
 )
@@ -42,6 +41,16 @@ func init() {
 }
 
 func initConfig() {
+	//Set env var prefix to only match certain vars
+	viper.SetEnvPrefix("SNMPSIM_CLI")
+	replacer := strings.NewReplacer(".", "_")
+	viper.SetEnvKeyReplacer(replacer)
+	viper.AutomaticEnv()
+
+	if cfgFile == "" {
+		cfgFile = viper.GetString("config")
+	}
+
 	if cfgFile != "" {
 		viper.SetConfigFile(cfgFile)
 	} else {
@@ -49,12 +58,6 @@ func initConfig() {
 		viper.SetConfigType("yaml")
 		viper.SetConfigName("snmpsim-cli-manager-config")
 	}
-
-	//Set env var prefix to only match certain vars
-	viper.SetEnvPrefix("SNMPSIM_CLI")
-	replacer := strings.NewReplacer(".", "_")
-	viper.SetEnvKeyReplacer(replacer)
-	viper.AutomaticEnv()
 
 	err := viper.ReadInConfig()
 	if err != nil {
