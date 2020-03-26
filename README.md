@@ -99,6 +99,16 @@ If you are using the binary you have to add a folder named **config** in the sam
 
 In this **config** folder you have to add a file named **snmpsim-cli-manager-config.yaml**. This file has to contain all data required in the snmpsim-cli config.
 
+##### Using the '--config' flag
+
+If you want to use an alternative config file for only one command, you can use the --config flag with the command. Here's an example of this:
+
+```
+snmpsim get labs --config ~/go/src/snmpsim-cli-manager/snmpsim/config/configtwo.yaml
+```
+
+Note, that this only works for one command, after that, you'll have to use one of the two other config methods stated above.
+
 #### Env-Config
 
 If you want to use the **setup-env** feature with the **--env-config** flag you'll need a valid config file located on your machine. 
