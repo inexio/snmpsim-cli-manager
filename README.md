@@ -107,7 +107,7 @@ If you want to use an alternative config file for only one command, you can use 
 snmpsim get labs --config ~/go/src/snmpsim-cli-manager/snmpsim/config/configtwo.yaml
 ```
 
-Note, that this only works for one command, after that, you'll have to use one of the two other config methods stated above.
+Note, that this only works for one command and doesn't permanently change the config file. 
 
 #### Env-Config
 
