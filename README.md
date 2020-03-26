@@ -116,7 +116,7 @@ You can also set an environment variable to read in the config file given in tha
 To set this variable use:
 
 ```
-export <YOUR_ENV_PREFIX>_CONFIG
+export <YOUR_ENV_PREFIX>_CONFIG=/absolut/path/to/your/config
 ```
 
 This way the config will always be read in instead of how '--config' has to be set every time you want to execute a command.
