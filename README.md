@@ -109,6 +109,19 @@ snmpsim get labs --config ~/go/src/snmpsim-cli-manager/snmpsim/config/configtwo.
 
 Note, that this only works for one command and doesn't permanently change the config file. 
 
+##### Using the env-var SNMPSIM_CLI_CONFIG
+
+You can also set an environment variable to read in the config file given in that variable.
+
+To set this variable use:
+
+```
+export <YOUR_ENV_PREFIX>_CONFIG
+```
+
+This way the config will always be read in instead of how '--config' has to be set every time you want to execute a command.
+
+
 #### Env-Config
 
 If you want to use the **setup-env** feature with the **--env-config** flag you'll need a valid config file located on your machine. 
