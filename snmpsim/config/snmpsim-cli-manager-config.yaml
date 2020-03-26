@@ -1,0 +1,29 @@
+mgmt:
+  http:
+    baseUrl: <your baseUrl>
+    authUsername: <your username>
+    authPassword: <your password>
+  rootDataDir: "management-api-test/"
+  testTag: "management-api-test"
+  protocol: "udpv4"
+  agent1:
+    endpointAddress: "192.168.100.203"
+    endpointPort:
+      - 6666
+  agent2:
+    endpointAddress: "192.168.100.203"
+    endpointPort:
+      - 6667
+
+metrics:
+  http:
+    baseUrl: <your baseUrl>
+    authUsername: <your username>
+    authPassword: <your password>
+  rootDataDir: "metrics-api-test/"
+  protocol: "udpv4"
+  agent1:
+    endpointAddress: "192.168.100.203"
+    endpointPort:
+      - 6668
+      - 7000

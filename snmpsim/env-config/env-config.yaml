@@ -1,0 +1,47 @@
+Labs:
+  1:
+    Name: "TestLab1"
+    Agents:
+      1:
+        Name: "TestAgent1"
+        DataDir: "/opt/snmpsim/data/agent1-test"
+        Engines:
+          1:
+            Name: "TestEngine1"
+            EngineId: "<put your desired engine-id here>"
+            Endpoints:
+              1:
+                Name: "TestEndpoint1"
+                Address: "127.0.0.1"
+                Protocol: "udpv4"
+            Users:
+              1:
+                Name: "TestName1"
+                User: "TestUser"
+                AuthKey: "0x50dd4d3ec79a1cf4dfa5fee9f76b08473154fcf74"
+                AuthProto: "sha"
+                PrivKey: "0x50dd4d3ec79a1cf4dfa5fee9f76b084731"
+                PrivProto: "des"
+  2:
+    Name: "TestLab2"
+    Agents:
+      2:
+        Name: "TestAgent2"
+        DataDir: "/opt/snmpsim/data/agent2-test"
+        Engines:
+          2:
+            Name: "TestEngine2"
+            EngineId: "<put your desired engine-id here>"
+            Endpoints:
+              2:
+                Name: "TestEndpoint2"
+                Address: "127.0.0.2"
+                Protocol: "udpv4"
+            Users:
+              2:
+                Name: "TestName2"
+                User: "TestUser"
+                AuthKey: "0x50dd4d3ec79a1cf4dfa5fee9f76b08473154fcf74"
+                AuthProto: "sha"
+                PrivKey: "0x50dd4d3ec79a1cf4dfa5fee9f76b084731"
+                PrivProto: "des"
