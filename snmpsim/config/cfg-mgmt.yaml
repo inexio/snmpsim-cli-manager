@@ -1,0 +1,2 @@
+config: config/snmpsim-cli-manager-config.yaml
+env-config: env-config/env-config.yaml

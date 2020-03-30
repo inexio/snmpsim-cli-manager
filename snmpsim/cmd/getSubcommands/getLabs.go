@@ -1,12 +1,12 @@
 package getsubcommands
 
 import (
-	//"github.com/davecgh/go-spew/spew"
+	"os"
+
 	snmpsimclient "github.com/inexio/snmpsim-restapi-go-client"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"os"
 )
 
 // GetLabsCmd represents the getLabs command

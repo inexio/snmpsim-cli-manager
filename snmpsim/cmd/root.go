@@ -2,11 +2,12 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"strings"
+
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
-	"os"
-	"strings"
 
 	"github.com/spf13/viper"
 )
@@ -54,9 +55,13 @@ func initConfig() {
 	if cfgFile != "" {
 		viper.SetConfigFile(cfgFile)
 	} else {
-		viper.AddConfigPath("config/")
-		viper.SetConfigType("yaml")
-		viper.SetConfigName("snmpsim-cli-manager-config")
+		cfgManager := viper.New()
+		cfgManager.SetConfigFile("config/cfg-mgmt.yaml")
+		if err := cfgManager.ReadInConfig(); err != nil {
+			log.Debug().
+				Msg("Could not read in cfg-mgmt file")
+		}
+		viper.SetConfigFile(cfgManager.GetString("config"))
 	}
 
 	err := viper.ReadInConfig()
