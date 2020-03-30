@@ -55,13 +55,9 @@ func initConfig() {
 	if cfgFile != "" {
 		viper.SetConfigFile(cfgFile)
 	} else {
-		cfgManager := viper.New()
-		cfgManager.SetConfigFile("config/cfg-mgmt.yaml")
-		if err := cfgManager.ReadInConfig(); err != nil {
-			log.Debug().
-				Msg("Could not read in cfg-mgmt file")
-		}
-		viper.SetConfigFile(cfgManager.GetString("config"))
+		viper.AddConfigPath("config/")
+		viper.SetConfigType("yaml")
+		viper.SetConfigName("snmpsim-cli-manager-config")
 	}
 
 	err := viper.ReadInConfig()
