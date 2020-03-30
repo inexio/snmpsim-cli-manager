@@ -78,16 +78,6 @@ After installing the tool you have to either declare a path to your config file 
 
 These can be set as follows:
 
-#### Set Config Command
-
-It's possible to permanetly change the config file that will be used.
-
-To do so use the following command:
-
-```
-snmpsim set config <path/to/your/config/file>
-```
-
 #### Config File
 
 ##### Using source
