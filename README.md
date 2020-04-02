@@ -8,7 +8,7 @@
 
 A tool for using the [snmpsim](https://github.com/etingof/snmpsim)  [REST API](https://github.com/etingof/snmpsim-control-plane) via the command-line written in go using the cobra CLI framework.
 
-The tool uses our [snmpsim-restapi-go-client](https://www.amazon.de/gp/product/B07HNCSQXC/ref=ppx_yo_dt_b_asin_title_o07_s00?ie=UTF8&psc=1).
+The tool uses our [snmpsim-restapi-go-client](https://github.com/inexio/snmpsim-restapi-go-client).
 
 ## Code Style
 
