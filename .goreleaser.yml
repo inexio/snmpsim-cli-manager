@@ -1,0 +1,21 @@
+# .goreleaser.yml
+before:
+  hooks:
+  - go mod download
+
+builds:
+  -
+    id: "snmpsim"
+    dir: ./snmpsim
+    main: ./main.go
+    binary: snmpsim
+
+archives:
+  -
+    builds:
+    - snmpsim
+    
+    replacements:
+      amd64: 64-bit
+      386: 32-bit
+      darwin: macOS
