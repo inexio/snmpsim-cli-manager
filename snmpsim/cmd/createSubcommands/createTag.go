@@ -17,12 +17,12 @@ var CreateTagCmd = &cobra.Command{
 	Long:  `Creates a new tag and returns its id`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")

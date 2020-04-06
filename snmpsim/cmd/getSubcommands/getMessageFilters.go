@@ -20,12 +20,12 @@ var MessageFiltersCmd = &cobra.Command{
 		format, depth, prettified := parsePersistentFlags(cmd)
 
 		//Load the client data from the config
-		baseUrl := viper.GetString("metrics.http.baseUrl")
+		baseURL := viper.GetString("metrics.http.baseURL")
 		username := viper.GetString("metrics.http.authUsername")
 		password := viper.GetString("metrics.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewMetricsClient(baseUrl)
+		client, err := snmpsimclient.NewMetricsClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error during creation of new metrics client")

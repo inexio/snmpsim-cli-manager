@@ -17,12 +17,12 @@ var CreateEngineCmd = &cobra.Command{
 	Long:  `Creates a new engine and returns its id`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")
@@ -35,44 +35,44 @@ var CreateEngineCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		//Read in the engines name and engineId
+		//Read in the engines name and engineID
 		name := cmd.Flag("name").Value.String()
-		engineId := cmd.Flag("engineId").Value.String()
+		engineID := cmd.Flag("engineID").Value.String()
 
 		//Create an engine
 		var engine snmpsimclient.Engine
 		if cmd.Flag("tag").Changed {
 			//Read in tag-id
-			tagId, err := cmd.Flags().GetInt("tag")
+			tagID, err := cmd.Flags().GetInt("tag")
 			if err != nil {
 				log.Error().
-					Msg("Error while retrieving tagId")
+					Msg("Error while retrieving tagID")
 				os.Exit(1)
 			}
 
 			//Validate tag-id
-			if tagId == 0 {
+			if tagID == 0 {
 				log.Error().
-					Msg("TagId can not be 0")
+					Msg("tagID can not be 0")
 				os.Exit(1)
 			}
 
 			//Check if tag with given id exists
-			_, err = client.GetTag(tagId)
+			_, err = client.GetTag(tagID)
 			if err != nil {
 				log.Error().
 					Msg("No tag with the given id found")
 				os.Exit(1)
 			}
 
-			engine, err = client.CreateEngineWithTag(name, engineId, tagId)
+			engine, err = client.CreateEngineWithTag(name, engineID, tagID)
 			if err != nil {
 				log.Error().
 					Msg("Error during creation of the engine")
 				os.Exit(1)
 			}
 		} else {
-			engine, err = client.CreateEngine(name, engineId)
+			engine, err = client.CreateEngine(name, engineID)
 			if err != nil {
 				log.Error().
 					Msg("Error during creation of the engine")
@@ -86,15 +86,15 @@ var CreateEngineCmd = &cobra.Command{
 		//Add engine to agent (if agent flag is set)
 		if cmd.Flag("agent").Changed {
 			//Read in agent-id
-			agentId, err := cmd.Flags().GetInt("agent")
+			agentID, err := cmd.Flags().GetInt("agent")
 			if err != nil {
 				log.Error().
-					Msg("Error while retrieving agentId")
+					Msg("Error while retrieving agentID")
 				os.Exit(1)
 			}
 
 			//Check if agent with given id exists
-			_, err = client.GetAgent(agentId)
+			_, err = client.GetAgent(agentID)
 			if err != nil {
 				log.Error().
 					Msg("No agent with the given id found")
@@ -102,23 +102,23 @@ var CreateEngineCmd = &cobra.Command{
 			}
 
 			//Add engine to agent
-			err = client.AddEngineToAgent(agentId, engine.Id)
+			err = client.AddEngineToAgent(agentID, engine.Id)
 			if err != nil {
 				log.Error().
 					Msg("Error while adding engine to agent")
 				os.Exit(1)
 			}
-			fmt.Println("Successfully added engine", engine.Id, "to agent ", agentId)
+			fmt.Println("Successfully added engine", engine.Id, "to agent ", agentID)
 		}
 	},
 }
 
 func init() {
-	CreateEngineCmd.Flags().String("engineId", "", "Freely selectable engine-id (not the internal id)")
-	err := CreateEngineCmd.MarkFlagRequired("engineId")
+	CreateEngineCmd.Flags().String("engineID", "", "Freely selectable engine-id (not the internal id)")
+	err := CreateEngineCmd.MarkFlagRequired("engineID")
 	if err != nil {
 		log.Error().
-			Msg("Could not mark 'engineId' flag required")
+			Msg("Could not mark 'engineID' flag required")
 		os.Exit(1)
 	}
 

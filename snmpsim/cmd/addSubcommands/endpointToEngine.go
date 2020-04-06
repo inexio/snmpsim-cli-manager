@@ -18,12 +18,12 @@ var EndpointToEngineCmd = &cobra.Command{
 	Long:  `Adds the endpoint with the given endpoint-id to the engine with the given engine-id.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")
@@ -37,7 +37,7 @@ var EndpointToEngineCmd = &cobra.Command{
 		}
 
 		//Read in the endpoint-id
-		endpointId, err := cmd.Flags().GetInt("endpoint")
+		endpointID, err := cmd.Flags().GetInt("endpoint")
 		if err != nil {
 			log.Error().
 				Msg("Error while retrieving endpoint-id")
@@ -45,7 +45,7 @@ var EndpointToEngineCmd = &cobra.Command{
 		}
 
 		//Read in the engine-id
-		engineId, err := cmd.Flags().GetInt("engine")
+		engineID, err := cmd.Flags().GetInt("engine")
 		if err != nil {
 			log.Error().
 				Msg("Error while retrieving engine-id")
@@ -53,13 +53,13 @@ var EndpointToEngineCmd = &cobra.Command{
 		}
 
 		//Add the endpoint to the engine
-		err = client.AddEndpointToEngine(engineId, endpointId)
+		err = client.AddEndpointToEngine(engineID, endpointID)
 		if err != nil {
 			log.Error().
 				Msg("Error while adding endpoint to engine")
 			os.Exit(1)
 		}
-		fmt.Println("Endpoint", endpointId, "has been added to engine", engineId)
+		fmt.Println("Endpoint", endpointID, "has been added to engine", engineID)
 	},
 }
 

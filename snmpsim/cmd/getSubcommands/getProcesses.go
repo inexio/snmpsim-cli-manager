@@ -22,12 +22,12 @@ All details of one specific process can be retrieved via 'get process <process-i
 		format, depth, prettified := parsePersistentFlags(cmd)
 
 		//Load the client data from the config
-		baseUrl := viper.GetString("metrics.http.baseUrl")
+		baseURL := viper.GetString("metrics.http.baseURL")
 		username := viper.GetString("metrics.http.authUsername")
 		password := viper.GetString("metrics.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewMetricsClient(baseUrl)
+		client, err := snmpsimclient.NewMetricsClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating new metrics client")

@@ -31,12 +31,12 @@ var powerCmd = &cobra.Command{
 		}
 
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")
@@ -50,11 +50,11 @@ var powerCmd = &cobra.Command{
 		}
 
 		//Read in the lab-id
-		labId := args[0]
-		lab, err := strconv.Atoi(labId)
+		labID := args[0]
+		lab, err := strconv.Atoi(labID)
 		if err != nil {
 			log.Error().
-				Msg("Error while converting labId from string to integer")
+				Msg("Error while converting labID from string to integer")
 			os.Exit(1)
 		}
 
@@ -90,7 +90,7 @@ var powerCmd = &cobra.Command{
 				Msg("Error during setting of lab power")
 			os.Exit(1)
 		}
-		fmt.Println("Power of Lab", labId, "has been successfully set to", status)
+		fmt.Println("Power of Lab", labID, "has been successfully set to", status)
 	},
 }
 

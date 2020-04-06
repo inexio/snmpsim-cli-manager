@@ -18,12 +18,12 @@ var UserFromEngineCmd = &cobra.Command{
 	Long:  `Removes the user with the given user-id from the engine with the give engine-id`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")
@@ -37,29 +37,29 @@ var UserFromEngineCmd = &cobra.Command{
 		}
 
 		//Read in the user-id
-		userId, err := cmd.Flags().GetInt("user")
+		userID, err := cmd.Flags().GetInt("user")
 		if err != nil {
 			log.Error().
-				Msg("Error while retrieving userId")
+				Msg("Error while retrieving userID")
 			os.Exit(1)
 		}
 
 		//Read in the engine-id
-		engineId, err := cmd.Flags().GetInt("engine")
+		engineID, err := cmd.Flags().GetInt("engine")
 		if err != nil {
 			log.Error().
-				Msg("Error while retrieving engineId")
+				Msg("Error while retrieving engineID")
 			os.Exit(1)
 		}
 
 		//Remove the user from the engine
-		err = client.RemoveUserFromEngine(engineId, userId)
+		err = client.RemoveUserFromEngine(engineID, userID)
 		if err != nil {
 			log.Error().
 				Msg("Error during removal of the user from the engine")
 			os.Exit(1)
 		}
-		fmt.Println("User", userId, "has been removed from engine", engineId)
+		fmt.Println("User", userID, "has been removed from engine", engineID)
 	},
 }
 

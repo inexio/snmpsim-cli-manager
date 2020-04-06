@@ -33,12 +33,12 @@ These details include:
 		format, depth, prettified := parsePersistentFlags(cmd)
 
 		//Load the client data from the config
-		baseUrl := viper.GetString("metrics.http.baseUrl")
+		baseURL := viper.GetString("metrics.http.baseURL")
 		username := viper.GetString("metrics.http.authUsername")
 		password := viper.GetString("metrics.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewMetricsClient(baseUrl)
+		client, err := snmpsimclient.NewMetricsClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating new metrics client")
@@ -73,8 +73,8 @@ These details include:
 			data = processConsolePages
 		} else if cmd.Flag("console-page").Changed {
 			//Read in page-id
-			var pageId int
-			pageId, err = cmd.Flags().GetInt("console-page")
+			var pageID int
+			pageID, err = cmd.Flags().GetInt("console-page")
 			if err != nil {
 				log.Error().
 					Msg("Error while retrieving console-page id")
@@ -83,7 +83,7 @@ These details include:
 
 			//Get process console page via page-id
 			var processConsolePage snmpsimclient.Console
-			processConsolePage, err = client.GetProcessConsolePage(id, pageId)
+			processConsolePage, err = client.GetProcessConsolePage(id, pageID)
 			if err != nil {
 				log.Error().
 					Msg("Error while getting process console page")
@@ -104,7 +104,7 @@ These details include:
 			data = processEndpoints
 		} else if cmd.Flag("endpoint").Changed {
 			//Read in endpoint-id
-			endpointId, err := cmd.Flags().GetInt("endpoint")
+			endpointID, err := cmd.Flags().GetInt("endpoint")
 			if err != nil {
 				log.Error().
 					Msg("Error while reading in endpoint-id")
@@ -113,7 +113,7 @@ These details include:
 
 			//Get process endpoint via endpoint-id
 			var processEndpoint snmpsimclient.ProcessEndpoint
-			processEndpoint, err = client.GetProcessEndpoint(id, endpointId)
+			processEndpoint, err = client.GetProcessEndpoint(id, endpointID)
 			if err != nil {
 				log.Error().
 					Msg("Error while getting process endpoint")

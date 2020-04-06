@@ -18,12 +18,12 @@ var UserToEngineCmd = &cobra.Command{
 	Long:  `Adds the user with a given user-id to the engine with the given engine-id.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")
@@ -37,7 +37,7 @@ var UserToEngineCmd = &cobra.Command{
 		}
 
 		//Read in the engine-id
-		engineId, err := cmd.Flags().GetInt("engine")
+		engineID, err := cmd.Flags().GetInt("engine")
 		if err != nil {
 			log.Error().
 				Msg("Error while retrieving engine-id")
@@ -45,7 +45,7 @@ var UserToEngineCmd = &cobra.Command{
 		}
 
 		//Read in the user-id
-		userId, err := cmd.Flags().GetInt("user")
+		userID, err := cmd.Flags().GetInt("user")
 		if err != nil {
 			log.Error().
 				Msg("Error while retrieving user-id")
@@ -53,13 +53,13 @@ var UserToEngineCmd = &cobra.Command{
 		}
 
 		//Add the user to the engine
-		err = client.AddUserToEngine(engineId, userId)
+		err = client.AddUserToEngine(engineID, userID)
 		if err != nil {
 			log.Error().
 				Msg("Error while adding user to engine")
 			os.Exit(1)
 		}
-		fmt.Println("User", userId, "has been added to engine", engineId)
+		fmt.Println("User", userID, "has been added to engine", engineID)
 	},
 }
 

@@ -18,12 +18,12 @@ var DeleteAgentCmd = &cobra.Command{
 	Long:  `Deletes the agent with the given agent-id`,
 	Run: func(deleteAgentCmd *cobra.Command, args []string) {
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")
@@ -37,7 +37,7 @@ var DeleteAgentCmd = &cobra.Command{
 		}
 
 		//Read in the agent-id
-		agentId, err := strconv.Atoi(args[0])
+		agentID, err := strconv.Atoi(args[0])
 		if err != nil {
 			log.Error().
 				Msg("Error during conversion of agent-id from string to integer")
@@ -45,7 +45,7 @@ var DeleteAgentCmd = &cobra.Command{
 		}
 
 		//Delete the agent
-		err = client.DeleteAgent(agentId)
+		err = client.DeleteAgent(agentID)
 		if err != nil {
 			log.Error().
 				Msg("Error while deleting agent")

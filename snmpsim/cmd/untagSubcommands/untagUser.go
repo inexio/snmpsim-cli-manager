@@ -18,12 +18,12 @@ var UntagUserCmd = &cobra.Command{
 	Long:  `Removes the tag with the given tag-id from the user with the given user-id.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")
@@ -37,28 +37,28 @@ var UntagUserCmd = &cobra.Command{
 		}
 
 		//Read in the tag-id
-		tagId, err := cmd.Flags().GetInt("tag")
+		tagID, err := cmd.Flags().GetInt("tag")
 		if err != nil {
 			log.Error().
-				Msg("Error while converting tagId from string to integer")
+				Msg("Error while converting tagID from string to integer")
 			os.Exit(1)
 		}
 
 		//Read in the user-id
-		userId, err := strconv.Atoi(args[0])
+		userID, err := strconv.Atoi(args[0])
 		if err != nil {
 			log.Error().
-				Msg("Error while converting userId from string to integer")
+				Msg("Error while converting userID from string to integer")
 			os.Exit(1)
 		}
 
 		//Removing the tag from the user
-		err = client.RemoveTagFromUser(userId, tagId)
+		err = client.RemoveTagFromUser(userID, tagID)
 		if err != nil {
 			log.Error().
 				Msg("Error while removing tag from the user")
 			os.Exit(1)
 		}
-		fmt.Println("Tag", tagId, "has been removed from user", userId)
+		fmt.Println("Tag", tagID, "has been removed from user", userID)
 	},
 }

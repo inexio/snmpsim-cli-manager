@@ -18,12 +18,12 @@ var AgentToLabCmd = &cobra.Command{
 	Long:  `Adds the agent with the given agent-id to the lab with the given lab-id.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")
@@ -37,7 +37,7 @@ var AgentToLabCmd = &cobra.Command{
 		}
 
 		//Read in the agent-id
-		agentId, err := cmd.Flags().GetInt("agent")
+		agentID, err := cmd.Flags().GetInt("agent")
 		if err != nil {
 			log.Error().
 				Msg("Error while retrieving agent-id")
@@ -45,7 +45,7 @@ var AgentToLabCmd = &cobra.Command{
 		}
 
 		//Read in the lab-id
-		labId, err := cmd.Flags().GetInt("lab")
+		labID, err := cmd.Flags().GetInt("lab")
 		if err != nil {
 			log.Error().
 				Msg("Error while retrieving lab-id")
@@ -53,13 +53,13 @@ var AgentToLabCmd = &cobra.Command{
 		}
 
 		//Add the agent to the lab
-		err = client.AddAgentToLab(labId, agentId)
+		err = client.AddAgentToLab(labID, agentID)
 		if err != nil {
 			log.Error().
 				Msg("Error while adding agent to lab")
 			os.Exit(1)
 		}
-		fmt.Println("Agent", agentId, "has been added to lab", labId)
+		fmt.Println("Agent", agentID, "has been added to lab", labID)
 	},
 }
 

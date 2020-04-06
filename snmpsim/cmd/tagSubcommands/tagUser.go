@@ -19,12 +19,12 @@ var TagUserCmd = &cobra.Command{
 	Long:  `Tags the user with the given user-id with the given tag-id.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")
@@ -38,28 +38,28 @@ var TagUserCmd = &cobra.Command{
 		}
 
 		//Read in the tag-id
-		tagId, err := cmd.Flags().GetInt("tag")
+		tagID, err := cmd.Flags().GetInt("tag")
 		if err != nil {
 			log.Error().
-				Msg("Error while converting tagId from string to integer")
+				Msg("Error while converting tagID from string to integer")
 			os.Exit(1)
 		}
 
 		//Read in the user-id
-		userId, err := strconv.Atoi(args[0])
+		userID, err := strconv.Atoi(args[0])
 		if err != nil {
 			log.Error().
-				Msg("Error while converting userId from string to integer")
+				Msg("Error while converting userID from string to integer")
 			os.Exit(1)
 		}
 
 		//Add the tag to the user
-		err = client.AddTagToUser(userId, tagId)
+		err = client.AddTagToUser(userID, tagID)
 		if err != nil {
 			log.Error().
 				Msg("Error while adding tag to the user")
 			os.Exit(1)
 		}
-		fmt.Println("User", userId, "has been added tagged with tag", tagId)
+		fmt.Println("User", userID, "has been added tagged with tag", tagID)
 	},
 }

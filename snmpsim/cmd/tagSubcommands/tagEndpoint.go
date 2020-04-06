@@ -18,12 +18,12 @@ var TagEndpointCmd = &cobra.Command{
 	Long:  `Tags the endpoint with the given endpoint-id with the given tag-id.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")
@@ -37,28 +37,28 @@ var TagEndpointCmd = &cobra.Command{
 		}
 
 		//Read in the tag-id
-		tagId, err := cmd.Flags().GetInt("tag")
+		tagID, err := cmd.Flags().GetInt("tag")
 		if err != nil {
 			log.Error().
-				Msg("Error while converting tagId from string to integer")
+				Msg("Error while converting tagID from string to integer")
 			os.Exit(1)
 		}
 
 		//Read in the endpoint-id
-		endpointId, err := strconv.Atoi(args[0])
+		endpointID, err := strconv.Atoi(args[0])
 		if err != nil {
 			log.Error().
-				Msg("Error while converting endpointId from string to integer")
+				Msg("Error while converting endpointID from string to integer")
 			os.Exit(1)
 		}
 
 		//Add the tag to the endpoint
-		err = client.AddTagToEndpoint(endpointId, tagId)
+		err = client.AddTagToEndpoint(endpointID, tagID)
 		if err != nil {
 			log.Error().
 				Msg("Error while adding tag to the endpoint")
 			os.Exit(1)
 		}
-		fmt.Println("Endpoint", endpointId, "has been tagged with tag", tagId)
+		fmt.Println("Endpoint", endpointID, "has been tagged with tag", tagID)
 	},
 }

@@ -18,12 +18,12 @@ var EndpointFromEngineCmd = &cobra.Command{
 	Long:  `Removes the endpoint with the given endpoint-id from the engine with the given engine-id`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")
@@ -37,29 +37,29 @@ var EndpointFromEngineCmd = &cobra.Command{
 		}
 
 		//Read in the endpoint-id
-		endpointId, err := cmd.Flags().GetInt("endpoint")
+		endpointID, err := cmd.Flags().GetInt("endpoint")
 		if err != nil {
 			log.Error().
-				Msg("Error while retrieving endpointId")
+				Msg("Error while retrieving endpointID")
 			os.Exit(1)
 		}
 
 		//Read in the engine-id
-		engineId, err := cmd.Flags().GetInt("engine")
+		engineID, err := cmd.Flags().GetInt("engine")
 		if err != nil {
 			log.Error().
-				Msg("Error while retrieving engineId")
+				Msg("Error while retrieving engineID")
 			os.Exit(1)
 		}
 
 		//Remove the endpoint from the engine
-		err = client.RemoveEndpointFromEngine(engineId, endpointId)
+		err = client.RemoveEndpointFromEngine(engineID, endpointID)
 		if err != nil {
 			log.Error().
 				Msg("Error while removing the endpoint from the engine")
 			os.Exit(1)
 		}
-		fmt.Println("Endpoint", endpointId, "has been removed from engine", engineId)
+		fmt.Println("Endpoint", endpointID, "has been removed from engine", engineID)
 	},
 }
 

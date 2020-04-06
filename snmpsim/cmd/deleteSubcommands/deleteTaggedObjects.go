@@ -18,12 +18,12 @@ var DeleteTaggedObjectsCmd = &cobra.Command{
 	Long:  `Deletes all objects tagged with the given tag-id`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")
@@ -37,15 +37,15 @@ var DeleteTaggedObjectsCmd = &cobra.Command{
 		}
 
 		//Read in the tag-id
-		tagId, err := strconv.Atoi(args[0])
+		tagID, err := strconv.Atoi(args[0])
 		if err != nil {
 			log.Error().
-				Msg("Error during conversion of tagId from string to integer")
+				Msg("Error during conversion of tagID from string to integer")
 			os.Exit(1)
 		}
 
 		//Delete all objects tagged with given id
-		tag, err := client.DeleteAllObjectsWithTag(tagId)
+		tag, err := client.DeleteAllObjectsWithTag(tagID)
 		if err != nil {
 			log.Error().
 				Msg("Error during deletion of all tagged objects")

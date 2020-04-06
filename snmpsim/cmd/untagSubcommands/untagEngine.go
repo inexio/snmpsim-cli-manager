@@ -18,12 +18,12 @@ var UntagEngineCmd = &cobra.Command{
 	Long:  `Removes the tag with the given tag-id from the engine with the given engine-id.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")
@@ -37,15 +37,15 @@ var UntagEngineCmd = &cobra.Command{
 		}
 
 		//Read in the tag-id
-		tagId, err := cmd.Flags().GetInt("tag")
+		tagID, err := cmd.Flags().GetInt("tag")
 		if err != nil {
 			log.Error().
-				Msg("Error while converting tagId from string to integer")
+				Msg("Error while converting tagID from string to integer")
 			os.Exit(1)
 		}
 
 		//Read in the engine-id
-		engineId, err := strconv.Atoi(args[0])
+		engineID, err := strconv.Atoi(args[0])
 		if err != nil {
 			log.Error().
 				Msg("Error while converting engine from string to integer")
@@ -53,12 +53,12 @@ var UntagEngineCmd = &cobra.Command{
 		}
 
 		//Removing the tag from the engine
-		err = client.RemoveTagFromEngine(engineId, tagId)
+		err = client.RemoveTagFromEngine(engineID, tagID)
 		if err != nil {
 			log.Error().
 				Msg("Error while removing tag from the engine")
 			os.Exit(1)
 		}
-		fmt.Println("Tag", tagId, "has been removed from engine", engineId)
+		fmt.Println("Tag", tagID, "has been removed from engine", engineID)
 	},
 }

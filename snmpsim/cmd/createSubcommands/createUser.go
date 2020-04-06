@@ -17,12 +17,12 @@ var CreateUserCmd = &cobra.Command{
 	Long:  `Creates a new user and returns its id.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")
@@ -47,29 +47,29 @@ var CreateUserCmd = &cobra.Command{
 		var user snmpsimclient.User
 		if cmd.Flag("tag").Changed {
 			//Read in tag-id
-			tagId, err := cmd.Flags().GetInt("tag")
+			tagID, err := cmd.Flags().GetInt("tag")
 			if err != nil {
 				log.Error().
-					Msg("Error while retrieving tagId")
+					Msg("Error while retrieving tagID")
 				os.Exit(1)
 			}
 
 			//Validate tag-id
-			if tagId == 0 {
+			if tagID == 0 {
 				log.Error().
-					Msg("TagId can not be 0")
+					Msg("tagID can not be 0")
 				os.Exit(1)
 			}
 
 			//Check if tag with given id exists
-			_, err = client.GetTag(tagId)
+			_, err = client.GetTag(tagID)
 			if err != nil {
 				log.Error().
 					Msg("No tag with the given id found")
 				os.Exit(1)
 			}
 
-			user, err = client.CreateUserWithTag(userFlag, name, authKey, authProto, privKey, privProto, tagId)
+			user, err = client.CreateUserWithTag(userFlag, name, authKey, authProto, privKey, privProto, tagID)
 			if err != nil {
 				log.Error().
 					Msg("Error during creation of the user")
@@ -90,15 +90,15 @@ var CreateUserCmd = &cobra.Command{
 		//Add user to engine (if engine flag is set)
 		if cmd.Flag("engine").Changed {
 			//Read in engine-id
-			engineId, err := cmd.Flags().GetInt("engine")
+			engineID, err := cmd.Flags().GetInt("engine")
 			if err != nil {
 				log.Error().
-					Msg("Error while retrieving engineId")
+					Msg("Error while retrieving engineID")
 				os.Exit(1)
 			}
 
 			//Check if engine with given id exists
-			_, err = client.GetEngine(engineId)
+			_, err = client.GetEngine(engineID)
 			if err != nil {
 				log.Error().
 					Msg("No engine with the given id found")
@@ -106,13 +106,13 @@ var CreateUserCmd = &cobra.Command{
 			}
 
 			//Add user to engine
-			err = client.AddUserToEngine(engineId, user.Id)
+			err = client.AddUserToEngine(engineID, user.Id)
 			if err != nil {
 				log.Error().
 					Msg("Error while adding user to engine")
 				os.Exit(1)
 			}
-			fmt.Println("Successfully added user", user.Id, "to engine", engineId)
+			fmt.Println("Successfully added user", user.Id, "to engine", engineID)
 		}
 	},
 }

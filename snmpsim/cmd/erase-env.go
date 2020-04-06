@@ -21,12 +21,12 @@ var eraseEnvCmd = &cobra.Command{
 	Long:  `Completely deletes all components created during setup-env operation including the tag created with it.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		//Load the client data from the config
-		baseUrl := viper.GetString("mgmt.http.baseUrl")
+		baseURL := viper.GetString("mgmt.http.baseURL")
 		username := viper.GetString("mgmt.http.authUsername")
 		password := viper.GetString("mgmt.http.authPassword")
 
 		//Create a new client
-		client, err := snmpsimclient.NewManagementClient(baseUrl)
+		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
 				Msg("Error while creating management client")
@@ -43,7 +43,7 @@ var eraseEnvCmd = &cobra.Command{
 		reader := bufio.NewReader(os.Stdin)
 
 		//Read in the tag-id
-		tagId, err := strconv.Atoi(args[0])
+		tagID, err := strconv.Atoi(args[0])
 		if err != nil {
 			log.Error().
 				Msg("Error while converting " + args[0] + "from string to int")
@@ -51,7 +51,7 @@ var eraseEnvCmd = &cobra.Command{
 		}
 
 		//Get information about the tag
-		tag, err := client.GetTag(tagId)
+		tag, err := client.GetTag(tagID)
 		if err != nil {
 			log.Error().
 				Msg("Error while getting tag")
@@ -62,7 +62,7 @@ var eraseEnvCmd = &cobra.Command{
 
 		//Check if the force flag is set
 		if !cmd.Flag("force").Changed {
-			fmt.Print("Are you sure you to delete the environment tagged with ", tag.Name, " id: ", tagId, "?(yes/no) ")
+			fmt.Print("Are you sure you to delete the environment tagged with ", tag.Name, " id: ", tagID, "?(yes/no) ")
 			//checking the user inpit
 			input, err := reader.ReadString('\n')
 			if err != nil {
@@ -88,7 +88,7 @@ var eraseEnvCmd = &cobra.Command{
 
 		if deleteEnv {
 			//Delete all tagged objects
-			_, err = client.DeleteAllObjectsWithTag(tagId)
+			_, err = client.DeleteAllObjectsWithTag(tagID)
 			if err != nil {
 				log.Error().
 					Msg("Error while deleting all objects tagged with " + tag.Name)
@@ -96,13 +96,13 @@ var eraseEnvCmd = &cobra.Command{
 			}
 
 			//Delete the tag itself
-			err = client.DeleteTag(tagId)
+			err = client.DeleteTag(tagID)
 			if err != nil {
 				log.Error().
 					Msg("Error while deleting tag " + tag.Name)
 				os.Exit(1)
 			}
-			fmt.Println("Environment", tag.Name, "id", tagId, "has been deleted successfully.")
+			fmt.Println("Environment", tag.Name, "id", tagID, "has been deleted successfully.")
 		}
 	},
 }

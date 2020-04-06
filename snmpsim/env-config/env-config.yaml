@@ -8,7 +8,7 @@ Labs:
         Engines:
           1:
             Name: "TestEngine1"
-            EngineId: "<put your desired engine-id here>"
+            engineID: "<put your desired engine-id here>"
             Endpoints:
               1:
                 Name: "TestEndpoint1"
@@ -31,7 +31,7 @@ Labs:
         Engines:
           2:
             Name: "TestEngine2"
-            EngineId: "<put your desired engine-id here>"
+            engineID: "<put your desired engine-id here>"
             Endpoints:
               2:
                 Name: "TestEndpoint2"
