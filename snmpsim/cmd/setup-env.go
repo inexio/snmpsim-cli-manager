@@ -86,16 +86,16 @@ When invoked with '--env-config' flag it can read the data contained in the give
 
 			//Create the environment according to the config
 			for _, lab := range environment.Labs {
-				labID := createObject("lab", tag.Id, lab.Name)
+				labID := createObject("lab", tag.ID, lab.Name)
 				for _, agent := range lab.Agents {
-					agentID := createObject("agent", tag.Id, agent.Name, agent.DataDir, strconv.Itoa(labID))
+					agentID := createObject("agent", tag.ID, agent.Name, agent.DataDir, strconv.Itoa(labID))
 					for _, engine := range agent.Engines {
-						engineID := createObject("engine", tag.Id, engine.Name, engine.engineID, strconv.Itoa(agentID))
+						engineID := createObject("engine", tag.ID, engine.Name, engine.engineID, strconv.Itoa(agentID))
 						for _, endpoint := range engine.Endpoints {
-							createObject("endpoint", tag.Id, endpoint.Name, endpoint.Address, endpoint.Protocol, strconv.Itoa(engineID))
+							createObject("endpoint", tag.ID, endpoint.Name, endpoint.Address, endpoint.Protocol, strconv.Itoa(engineID))
 						}
 						for _, user := range engine.Users {
-							createObject("user", tag.Id, user.Name, user.User, user.AuthKey, user.AuthProto, user.PrivKey, user.PrivProto, strconv.Itoa(engineID))
+							createObject("user", tag.ID, user.Name, user.User, user.AuthKey, user.AuthProto, user.PrivKey, user.PrivProto, strconv.Itoa(engineID))
 						}
 					}
 				}
@@ -137,13 +137,13 @@ When invoked with '--env-config' flag it can read the data contained in the give
 			}
 
 			for _, object := range objects {
-				createObjects(object, objectFields[object], tag.Id)
+				createObjects(object, objectFields[object], tag.ID)
 			}
 		}
 
 		fmt.Print("\n")
 		fmt.Println("Environment", tag.Name, "has been created successfully.")
-		fmt.Println("Id", tag.Id)
+		fmt.Println("Id", tag.ID)
 	},
 }
 
@@ -253,8 +253,8 @@ func createObject(objectType string, tagID int, args ...string) int {
 				Msg("Error while creating lab")
 			os.Exit(1)
 		}
-		fmt.Println("Lab", args[0], "has been created with the id", lab.Id)
-		id = lab.Id
+		fmt.Println("Lab", args[0], "has been created with the id", lab.ID)
+		id = lab.ID
 	case "agent":
 		//Create a tagged agent
 		agent, err := client.CreateAgentWithTag(args[0], args[1], tagID)
@@ -263,7 +263,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 				Msg("Error while creating agent")
 			os.Exit(1)
 		}
-		fmt.Println("Agent", args[0], "has been created with the id", agent.Id)
+		fmt.Println("Agent", args[0], "has been created with the id", agent.ID)
 
 		//Read in the lab-id
 		labID, err := strconv.Atoi(args[2])
@@ -274,14 +274,14 @@ func createObject(objectType string, tagID int, args ...string) int {
 		}
 
 		//Add the agent to the lab
-		err = client.AddAgentToLab(labID, agent.Id)
+		err = client.AddAgentToLab(labID, agent.ID)
 		if err != nil {
 			log.Error().
 				Msg("Error while adding agent to lab")
 			os.Exit(1)
 		}
-		fmt.Println("Agent", agent.Id, "has been added to lab", labID)
-		id = agent.Id
+		fmt.Println("Agent", agent.ID, "has been added to lab", labID)
+		id = agent.ID
 	case "engine":
 		//Create a tagged engine
 		engine, err := client.CreateEngineWithTag(args[0], args[1], tagID)
@@ -290,7 +290,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 				Msg("Error while creating engine")
 			os.Exit(1)
 		}
-		fmt.Println("Engine", args[0], "has been created with the id", engine.Id)
+		fmt.Println("Engine", args[0], "has been created with the id", engine.ID)
 
 		//Read in the agent-id
 		agentID, err := strconv.Atoi(args[2])
@@ -301,14 +301,14 @@ func createObject(objectType string, tagID int, args ...string) int {
 		}
 
 		//Add the engine to the agent
-		err = client.AddEngineToAgent(agentID, engine.Id)
+		err = client.AddEngineToAgent(agentID, engine.ID)
 		if err != nil {
 			log.Error().
 				Msg("Error while adding engine to agent")
 			os.Exit(1)
 		}
-		fmt.Println("Engine", engine.Id, "has been added to agent", agentID)
-		id = engine.Id
+		fmt.Println("Engine", engine.ID, "has been added to agent", agentID)
+		id = engine.ID
 	case "endpoint":
 		//Create a tagged endpoint
 		endpoint, err := client.CreateEndpointWithTag(args[0], args[1], args[2], tagID)
@@ -317,7 +317,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 				Msg("Error while creating endpoint")
 			os.Exit(1)
 		}
-		fmt.Println("Endpoint", args[0], "has been created with the id", endpoint.Id)
+		fmt.Println("Endpoint", args[0], "has been created with the id", endpoint.ID)
 
 		//Read in the engine-id
 		engineID, err := strconv.Atoi(args[3])
@@ -328,14 +328,14 @@ func createObject(objectType string, tagID int, args ...string) int {
 		}
 
 		//Add the endpoint to the engine
-		err = client.AddEndpointToEngine(engineID, endpoint.Id)
+		err = client.AddEndpointToEngine(engineID, endpoint.ID)
 		if err != nil {
 			log.Error().
 				Msg("Error while adding endpoint to engine")
 			os.Exit(1)
 		}
-		fmt.Println("Endpoint", endpoint.Id, "has been added to engine", engineID)
-		id = endpoint.Id
+		fmt.Println("Endpoint", endpoint.ID, "has been added to engine", engineID)
+		id = endpoint.ID
 	case "user":
 		//Create a tagged user
 		user, err := client.CreateUserWithTag(args[0], args[1], args[2], args[3], args[4], args[5], tagID)
@@ -344,7 +344,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 				Msg("Error while creating user")
 			os.Exit(1)
 		}
-		fmt.Println("User", args[0], "has been created with the id", user.Id)
+		fmt.Println("User", args[0], "has been created with the id", user.ID)
 
 		//Read in the engine-id
 		engineID, err := strconv.Atoi(args[6])
@@ -355,14 +355,14 @@ func createObject(objectType string, tagID int, args ...string) int {
 		}
 
 		//Add the user to the engine
-		err = client.AddUserToEngine(engineID, user.Id)
+		err = client.AddUserToEngine(engineID, user.ID)
 		if err != nil {
 			log.Error().
 				Msg("Error while adding user to engine")
 			os.Exit(1)
 		}
-		fmt.Println("User", user.Id, "has been added to engine", engineID)
-		id = user.Id
+		fmt.Println("User", user.ID, "has been added to engine", engineID)
+		id = user.ID
 	default:
 		log.Debug().
 			Msg("Invalid object-type " + objectType)

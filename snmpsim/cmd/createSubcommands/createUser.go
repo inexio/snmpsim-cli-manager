@@ -85,7 +85,7 @@ var CreateUserCmd = &cobra.Command{
 		}
 
 		fmt.Println("User has been created successfully.")
-		fmt.Println("Id:", user.Id)
+		fmt.Println("Id:", user.ID)
 
 		//Add user to engine (if engine flag is set)
 		if cmd.Flag("engine").Changed {
@@ -106,13 +106,13 @@ var CreateUserCmd = &cobra.Command{
 			}
 
 			//Add user to engine
-			err = client.AddUserToEngine(engineID, user.Id)
+			err = client.AddUserToEngine(engineID, user.ID)
 			if err != nil {
 				log.Error().
 					Msg("Error while adding user to engine")
 				os.Exit(1)
 			}
-			fmt.Println("Successfully added user", user.Id, "to engine", engineID)
+			fmt.Println("Successfully added user", user.ID, "to engine", engineID)
 		}
 	},
 }

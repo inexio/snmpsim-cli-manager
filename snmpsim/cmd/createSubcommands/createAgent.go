@@ -81,7 +81,7 @@ var CreateAgentCmd = &cobra.Command{
 		}
 
 		fmt.Println("Successfully created agent.")
-		fmt.Println("Id:", agent.Id)
+		fmt.Println("Id:", agent.ID)
 
 		//Add agent to lab (if lab flag is set)
 		if cmd.Flag("lab").Changed {
@@ -102,13 +102,13 @@ var CreateAgentCmd = &cobra.Command{
 			}
 
 			//Add agent to lab
-			err = client.AddAgentToLab(labID, agent.Id)
+			err = client.AddAgentToLab(labID, agent.ID)
 			if err != nil {
 				log.Error().
 					Msg("Error while adding agent to lab")
 				os.Exit(1)
 			}
-			fmt.Println("Successfully added agent", agent.Id, "to lab", labID)
+			fmt.Println("Successfully added agent", agent.ID, "to lab", labID)
 		}
 	},
 }

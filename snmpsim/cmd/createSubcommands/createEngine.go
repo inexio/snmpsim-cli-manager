@@ -81,7 +81,7 @@ var CreateEngineCmd = &cobra.Command{
 		}
 
 		fmt.Println("Engine has been created successfully.")
-		fmt.Println("Id:", engine.Id)
+		fmt.Println("Id:", engine.ID)
 
 		//Add engine to agent (if agent flag is set)
 		if cmd.Flag("agent").Changed {
@@ -102,13 +102,13 @@ var CreateEngineCmd = &cobra.Command{
 			}
 
 			//Add engine to agent
-			err = client.AddEngineToAgent(agentID, engine.Id)
+			err = client.AddEngineToAgent(agentID, engine.ID)
 			if err != nil {
 				log.Error().
 					Msg("Error while adding engine to agent")
 				os.Exit(1)
 			}
-			fmt.Println("Successfully added engine", engine.Id, "to agent ", agentID)
+			fmt.Println("Successfully added engine", engine.ID, "to agent ", agentID)
 		}
 	},
 }

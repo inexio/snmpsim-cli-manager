@@ -49,7 +49,7 @@ var CreateTagCmd = &cobra.Command{
 		}
 
 		fmt.Println("Tag has been created successfully.")
-		fmt.Println("Id:", tag.Id)
+		fmt.Println("Id:", tag.ID)
 	},
 }
 

@@ -82,7 +82,7 @@ var CreateEndpointCmd = &cobra.Command{
 		}
 
 		fmt.Println("Endpoint has been created successfully.")
-		fmt.Println("Id:", endpoint.Id)
+		fmt.Println("Id:", endpoint.ID)
 
 		//Add endpoint to engine (if engine flag is set)
 		if cmd.Flag("engine").Changed {
@@ -103,13 +103,13 @@ var CreateEndpointCmd = &cobra.Command{
 			}
 
 			//Add endpoint to engine
-			err = client.AddEndpointToEngine(engineID, endpoint.Id)
+			err = client.AddEndpointToEngine(engineID, endpoint.ID)
 			if err != nil {
 				log.Error().
 					Msg("Error while adding endpoint to engine")
 				os.Exit(1)
 			}
-			fmt.Println("Successfully added endpoint", endpoint.Id, "to engine", engineID)
+			fmt.Println("Successfully added endpoint", endpoint.ID, "to engine", engineID)
 		}
 	},
 }

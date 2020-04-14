@@ -80,7 +80,7 @@ var CreateLabCmd = &cobra.Command{
 		}
 
 		fmt.Println("Lab has been created successfully.")
-		fmt.Println("Id:", lab.Id)
+		fmt.Println("Id:", lab.ID)
 	},
 }
 

@@ -52,6 +52,6 @@ var DeleteTaggedObjectsCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		fmt.Println("All Objects tagged with", tag.Name, "(Id:", tag.Id, ") were deleted successfully.")
+		fmt.Println("All Objects tagged with", tag.Name, "(Id:", tag.ID, ") were deleted successfully.")
 	},
 }
