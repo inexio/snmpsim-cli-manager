@@ -159,6 +159,9 @@ export SNMPSIM_CLI_METRICS_HTTP_AUTHPASSWORD="<your password>"
 
 ## Usage
 
+When doing ```snmpsim help```, you can get information about all commands:
+![snmpsim help](https://imgur.com/HdmuDmU.gif)
+
 The following section will show you how to create a lab and do various operations with it.
 
 ```go
@@ -219,6 +222,7 @@ Lab
   Tags(0)
     /
 ```
+![snmpsim lab](https://imgur.com/cWXrpus.gif)
 
 To create an agent use the following command:
 
@@ -254,7 +258,7 @@ remove agent-from-lab --agent 1 --lab 1
 
 Agent 1 has been removed from lab 1
 ```
-
+![snmpsim agent](https://imgur.com/23xSzgs.gif)
 ## Tests
 
 In order to test if your setup is operational you can use the following command:
