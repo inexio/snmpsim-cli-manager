@@ -39,12 +39,14 @@ var powerCmd = &cobra.Command{
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -54,6 +56,7 @@ var powerCmd = &cobra.Command{
 		lab, err := strconv.Atoi(labID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while converting labID from string to integer")
 			os.Exit(1)
 		}
@@ -62,12 +65,14 @@ var powerCmd = &cobra.Command{
 		on, err := cmd.Flags().GetBool("on")
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while retrieving --on flag value")
 			os.Exit(1)
 		}
 		off, err := cmd.Flags().GetBool("off")
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while retrieving --off flag value")
 			os.Exit(1)
 		}
@@ -87,6 +92,7 @@ var powerCmd = &cobra.Command{
 		err = client.SetLabPower(lab, power)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error during setting of lab power")
 			os.Exit(1)
 		}

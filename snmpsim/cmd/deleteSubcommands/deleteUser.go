@@ -26,12 +26,14 @@ var DeleteUserCmd = &cobra.Command{
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -40,6 +42,7 @@ var DeleteUserCmd = &cobra.Command{
 		userID, err := strconv.Atoi(args[0])
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error during conversion of userID from string to integer")
 			os.Exit(1)
 		}
@@ -48,6 +51,7 @@ var DeleteUserCmd = &cobra.Command{
 		err = client.DeleteUser(userID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while deleting user")
 			os.Exit(1)
 		}

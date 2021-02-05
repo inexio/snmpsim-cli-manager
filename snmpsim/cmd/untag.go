@@ -30,6 +30,7 @@ func init() {
 	err := untagCmd.MarkPersistentFlagRequired("tag")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'tag' flag required")
 		os.Exit(1)
 	}

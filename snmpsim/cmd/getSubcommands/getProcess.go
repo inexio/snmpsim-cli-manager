@@ -41,12 +41,14 @@ These details include:
 		client, err := snmpsimclient.NewMetricsClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating new metrics client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -55,6 +57,7 @@ These details include:
 		id, err := strconv.Atoi(args[0])
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while converting id from string to integer")
 			os.Exit(1)
 		}
@@ -66,6 +69,7 @@ These details include:
 			processConsolePages, err := client.GetProcessConsolePages(id)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while getting process console pages")
 				os.Exit(1)
 			}
@@ -77,6 +81,7 @@ These details include:
 			pageID, err = cmd.Flags().GetInt("console-page")
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while retrieving console-page id")
 				os.Exit(1)
 			}
@@ -86,6 +91,7 @@ These details include:
 			processConsolePage, err = client.GetProcessConsolePage(id, pageID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while getting process console page")
 				os.Exit(1)
 			}
@@ -97,6 +103,7 @@ These details include:
 			processEndpoints, err = client.GetProcessEndpoints(id)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while getting process endpoints")
 				os.Exit(1)
 			}
@@ -107,6 +114,7 @@ These details include:
 			endpointID, err := cmd.Flags().GetInt("endpoint")
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while reading in endpoint-id")
 				os.Exit(1)
 			}
@@ -116,6 +124,7 @@ These details include:
 			processEndpoint, err = client.GetProcessEndpoint(id, endpointID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while getting process endpoint")
 				os.Exit(1)
 			}
@@ -127,6 +136,7 @@ These details include:
 			process, err = client.GetProcess(id)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while getting processes")
 				os.Exit(1)
 			}
@@ -138,6 +148,7 @@ These details include:
 		err = printData(data, format, prettified, depth)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while printing data")
 			os.Exit(1)
 		}

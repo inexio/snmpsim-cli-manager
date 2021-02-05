@@ -30,12 +30,14 @@ All details of one specific process can be retrieved via 'get process <process-i
 		client, err := snmpsimclient.NewMetricsClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating new metrics client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username of password")
 			os.Exit(1)
 		}
@@ -46,12 +48,14 @@ All details of one specific process can be retrieved via 'get process <process-i
 		processes, err = client.GetProcesses(filters)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while getting processes")
 			os.Exit(1)
 		}
 		err = printData(processes, format, prettified, depth)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while printing data")
 			os.Exit(1)
 		}

@@ -39,12 +39,14 @@ You can either upload a file as a whole or use a string that will be written int
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -59,6 +61,7 @@ You can either upload a file as a whole or use a string that will be written int
 			err = client.UploadRecordFile(lPath, rPath)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while uploading the record file")
 				os.Exit(1)
 			}
@@ -67,6 +70,7 @@ You can either upload a file as a whole or use a string that will be written int
 			err = client.UploadRecordFileString(&fileString, rPath)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while uploading the string into the record file")
 				os.Exit(1)
 			}

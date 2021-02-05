@@ -29,12 +29,14 @@ All details of one specific user can be retrieved via 'get user <user-id>'.`,
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -47,12 +49,14 @@ All details of one specific user can be retrieved via 'get user <user-id>'.`,
 		users, err = client.GetUsers(filters)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while getting users")
 			os.Exit(1)
 		}
 		err = printData(users, format, prettified, depth)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while printing data")
 			os.Exit(1)
 		}

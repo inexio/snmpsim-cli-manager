@@ -26,12 +26,14 @@ var EndpointToEngineCmd = &cobra.Command{
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -40,6 +42,7 @@ var EndpointToEngineCmd = &cobra.Command{
 		endpointID, err := cmd.Flags().GetInt("endpoint")
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while retrieving endpoint-id")
 			os.Exit(1)
 		}
@@ -48,6 +51,7 @@ var EndpointToEngineCmd = &cobra.Command{
 		engineID, err := cmd.Flags().GetInt("engine")
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while retrieving engine-id")
 			os.Exit(1)
 		}
@@ -56,6 +60,7 @@ var EndpointToEngineCmd = &cobra.Command{
 		err = client.AddEndpointToEngine(engineID, endpointID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while adding endpoint to engine")
 			os.Exit(1)
 		}
@@ -69,6 +74,7 @@ func init() {
 	err := EndpointToEngineCmd.MarkFlagRequired("endpoint")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'endpoint' flag required")
 		os.Exit(1)
 	}
@@ -78,6 +84,7 @@ func init() {
 	err = EndpointToEngineCmd.MarkFlagRequired("engine")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'engine' flag required")
 		os.Exit(1)
 	}

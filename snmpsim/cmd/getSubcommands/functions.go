@@ -187,6 +187,7 @@ func parsePersistentFlags(cmd *cobra.Command) (string, int, bool) {
 	depth, err := cmd.Flags().GetInt("depth")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Error while retrieving 'depth' flag")
 		os.Exit(1)
 	}
@@ -194,6 +195,7 @@ func parsePersistentFlags(cmd *cobra.Command) (string, int, bool) {
 	prettified, err := strconv.ParseBool(cmd.Flag("pretty").Value.String())
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Error during conversion of 'pretty' flag")
 		os.Exit(1)
 	}

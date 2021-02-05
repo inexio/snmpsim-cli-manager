@@ -25,12 +25,14 @@ var CreateAgentCmd = &cobra.Command{
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -46,6 +48,7 @@ var CreateAgentCmd = &cobra.Command{
 			tagID, err := cmd.Flags().GetInt("tag")
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while retrieving tagID")
 				os.Exit(1)
 			}
@@ -61,6 +64,7 @@ var CreateAgentCmd = &cobra.Command{
 			_, err = client.GetTag(tagID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("No tag with the given id found")
 				os.Exit(1)
 			}
@@ -68,6 +72,7 @@ var CreateAgentCmd = &cobra.Command{
 			agent, err = client.CreateAgentWithTag(name, dataDir, tagID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error during creation of the agent")
 				os.Exit(1)
 			}
@@ -75,6 +80,7 @@ var CreateAgentCmd = &cobra.Command{
 			agent, err = client.CreateAgent(name, dataDir)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error during creation of the agent")
 				os.Exit(1)
 			}
@@ -89,6 +95,7 @@ var CreateAgentCmd = &cobra.Command{
 			labID, err := cmd.Flags().GetInt("lab")
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while retrieving lab-id")
 				os.Exit(1)
 			}
@@ -97,6 +104,7 @@ var CreateAgentCmd = &cobra.Command{
 			_, err = client.GetLab(labID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("No lab with the given id found")
 				os.Exit(1)
 			}
@@ -105,6 +113,7 @@ var CreateAgentCmd = &cobra.Command{
 			err = client.AddAgentToLab(labID, agent.ID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while adding agent to lab")
 				os.Exit(1)
 			}
@@ -118,6 +127,7 @@ func init() {
 	err := CreateAgentCmd.MarkFlagRequired("dataDir")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'dataDir' flag required")
 		os.Exit(1)
 	}

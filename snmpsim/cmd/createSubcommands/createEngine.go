@@ -25,12 +25,14 @@ var CreateEngineCmd = &cobra.Command{
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -46,6 +48,7 @@ var CreateEngineCmd = &cobra.Command{
 			tagID, err := cmd.Flags().GetInt("tag")
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while retrieving tagID")
 				os.Exit(1)
 			}
@@ -61,6 +64,7 @@ var CreateEngineCmd = &cobra.Command{
 			_, err = client.GetTag(tagID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("No tag with the given id found")
 				os.Exit(1)
 			}
@@ -68,6 +72,7 @@ var CreateEngineCmd = &cobra.Command{
 			engine, err = client.CreateEngineWithTag(name, engineID, tagID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error during creation of the engine")
 				os.Exit(1)
 			}
@@ -75,6 +80,7 @@ var CreateEngineCmd = &cobra.Command{
 			engine, err = client.CreateEngine(name, engineID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error during creation of the engine")
 				os.Exit(1)
 			}
@@ -89,6 +95,7 @@ var CreateEngineCmd = &cobra.Command{
 			agentID, err := cmd.Flags().GetInt("agent")
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while retrieving agentID")
 				os.Exit(1)
 			}
@@ -97,6 +104,7 @@ var CreateEngineCmd = &cobra.Command{
 			_, err = client.GetAgent(agentID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("No agent with the given id found")
 				os.Exit(1)
 			}
@@ -105,6 +113,7 @@ var CreateEngineCmd = &cobra.Command{
 			err = client.AddEngineToAgent(agentID, engine.ID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while adding engine to agent")
 				os.Exit(1)
 			}
@@ -118,6 +127,7 @@ func init() {
 	err := CreateEngineCmd.MarkFlagRequired("engineID")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'engineID' flag required")
 		os.Exit(1)
 	}

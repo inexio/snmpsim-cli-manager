@@ -63,6 +63,7 @@ func initConfig() {
 	err := viper.ReadInConfig()
 	if err != nil {
 		log.Debug().
+			Err(err).
 			Msg("Could not read in config file\nMake sure you have set environment variables if you're not using a config-file")
 	}
 }

@@ -25,12 +25,14 @@ var CreateLabCmd = &cobra.Command{
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -45,6 +47,7 @@ var CreateLabCmd = &cobra.Command{
 			tagID, err := cmd.Flags().GetInt("tag")
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while retrieving tagID")
 				os.Exit(1)
 			}
@@ -60,6 +63,7 @@ var CreateLabCmd = &cobra.Command{
 			_, err = client.GetTag(tagID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("No tag with the given id found")
 				os.Exit(1)
 			}
@@ -67,6 +71,7 @@ var CreateLabCmd = &cobra.Command{
 			lab, err = client.CreateLabWithTag(name, tagID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error during creation of the lab")
 				os.Exit(1)
 			}
@@ -74,6 +79,7 @@ var CreateLabCmd = &cobra.Command{
 			lab, err = client.CreateLab(name)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error during creation of the lab")
 				os.Exit(1)
 			}

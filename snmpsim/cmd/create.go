@@ -26,6 +26,7 @@ func init() {
 	err := createCmd.MarkPersistentFlagRequired("name")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'name' flag required")
 		os.Exit(1)
 	}

@@ -37,12 +37,14 @@ var GetFilterValuesCmd = &cobra.Command{
 		client, err := snmpsimclient.NewMetricsClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error during creation of new metrics client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -54,6 +56,7 @@ var GetFilterValuesCmd = &cobra.Command{
 			mValues, err = client.GetPossibleValuesForMessageFilter(mFilter)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while getting possible values for message filter")
 				os.Exit(1)
 			}
@@ -61,6 +64,7 @@ var GetFilterValuesCmd = &cobra.Command{
 			err = printData(mValues, format, prettified, depth)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while printing data")
 				os.Exit(1)
 			}
@@ -70,6 +74,7 @@ var GetFilterValuesCmd = &cobra.Command{
 			pValues, err = client.GetPossibleValuesForMessageFilter(pFilter)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while getting possible values for packet filter")
 				os.Exit(1)
 			}
@@ -77,6 +82,7 @@ var GetFilterValuesCmd = &cobra.Command{
 			err = printData(pValues, format, prettified, depth)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while printing data")
 				os.Exit(1)
 			}

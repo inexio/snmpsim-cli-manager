@@ -28,12 +28,14 @@ var MessageFiltersCmd = &cobra.Command{
 		client, err := snmpsimclient.NewMetricsClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error during creation of new metrics client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -43,12 +45,14 @@ var MessageFiltersCmd = &cobra.Command{
 		filters, err = client.GetMessageFilters()
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while getting message-filters")
 			os.Exit(1)
 		}
 		err = printData(filters, format, prettified, depth)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while printing data")
 			os.Exit(1)
 		}

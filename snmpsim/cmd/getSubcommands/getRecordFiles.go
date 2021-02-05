@@ -29,12 +29,14 @@ All details of one specific record-file can be retrieved via 'get record-file <r
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -44,12 +46,14 @@ All details of one specific record-file can be retrieved via 'get record-file <r
 		recordFiles, err = client.GetRecordFiles()
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while getting record files")
 			os.Exit(1)
 		}
 		err = printData(recordFiles, format, prettified, depth)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while printing data")
 			os.Exit(1)
 		}

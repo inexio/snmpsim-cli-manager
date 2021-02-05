@@ -29,12 +29,14 @@ var eraseEnvCmd = &cobra.Command{
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -46,6 +48,7 @@ var eraseEnvCmd = &cobra.Command{
 		tagID, err := strconv.Atoi(args[0])
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while converting " + args[0] + "from string to int")
 			os.Exit(1)
 		}
@@ -54,6 +57,7 @@ var eraseEnvCmd = &cobra.Command{
 		tag, err := client.GetTag(tagID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while getting tag")
 			os.Exit(1)
 		}
@@ -67,6 +71,7 @@ var eraseEnvCmd = &cobra.Command{
 			input, err := reader.ReadString('\n')
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while retrieving input")
 				os.Exit(1)
 			}
@@ -91,6 +96,7 @@ var eraseEnvCmd = &cobra.Command{
 			_, err = client.DeleteAllObjectsWithTag(tagID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while deleting all objects tagged with " + tag.Name)
 				os.Exit(1)
 			}
@@ -99,6 +105,7 @@ var eraseEnvCmd = &cobra.Command{
 			err = client.DeleteTag(tagID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while deleting tag " + tag.Name)
 				os.Exit(1)
 			}

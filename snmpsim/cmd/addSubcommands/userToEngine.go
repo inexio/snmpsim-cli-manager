@@ -26,12 +26,14 @@ var UserToEngineCmd = &cobra.Command{
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -40,6 +42,7 @@ var UserToEngineCmd = &cobra.Command{
 		engineID, err := cmd.Flags().GetInt("engine")
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while retrieving engine-id")
 			os.Exit(1)
 		}
@@ -48,6 +51,7 @@ var UserToEngineCmd = &cobra.Command{
 		userID, err := cmd.Flags().GetInt("user")
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while retrieving user-id")
 			os.Exit(1)
 		}
@@ -56,6 +60,7 @@ var UserToEngineCmd = &cobra.Command{
 		err = client.AddUserToEngine(engineID, userID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while adding user to engine")
 			os.Exit(1)
 		}
@@ -69,6 +74,7 @@ func init() {
 	err := UserToEngineCmd.MarkFlagRequired("user")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'user' flag required")
 		os.Exit(1)
 	}
@@ -78,6 +84,7 @@ func init() {
 	err = UserToEngineCmd.MarkFlagRequired("engine")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'engine' flag required")
 		os.Exit(1)
 	}

@@ -27,12 +27,14 @@ var GetRecordFileCmd = &cobra.Command{
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -45,12 +47,14 @@ var GetRecordFileCmd = &cobra.Command{
 		recordFile, err = client.GetRecordFile(path)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while getting record file")
 			os.Exit(1)
 		}
 		err = printData(recordFile, format, prettified, depth)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while printing data")
 			os.Exit(1)
 		}

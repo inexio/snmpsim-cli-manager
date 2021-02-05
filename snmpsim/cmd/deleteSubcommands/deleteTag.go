@@ -26,12 +26,14 @@ var DeleteTagCmd = &cobra.Command{
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -40,6 +42,7 @@ var DeleteTagCmd = &cobra.Command{
 		tagID, err := strconv.Atoi(args[0])
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error during conversion of tagID from string to integer")
 			os.Exit(1)
 		}
@@ -48,6 +51,7 @@ var DeleteTagCmd = &cobra.Command{
 		err = client.DeleteTag(tagID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while deleting tag")
 			os.Exit(1)
 		}

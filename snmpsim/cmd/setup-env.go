@@ -38,12 +38,14 @@ When invoked with '--env-config' flag it can read the data contained in the give
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -52,12 +54,14 @@ When invoked with '--env-config' flag it can read the data contained in the give
 		tagName, err := randToken(8)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error during creation of hex token for tag")
 			os.Exit(1)
 		}
 		tag, err := client.CreateTag("Env#"+tagName, "Created via the setup-env command")
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating tag")
 			os.Exit(1)
 		}
@@ -71,6 +75,7 @@ When invoked with '--env-config' flag it can read the data contained in the give
 			fileContents, err := ioutil.ReadFile(file)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Could not read file")
 				os.Exit(1)
 			}
@@ -80,6 +85,7 @@ When invoked with '--env-config' flag it can read the data contained in the give
 			err = yaml.Unmarshal(fileContents, &environment)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Could not unmarshal")
 				os.Exit(1)
 			}
@@ -164,6 +170,7 @@ func createObjects(object string, fields []string, tagID int) {
 	input, err := reader.ReadString('\n')
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Error while retrieving input")
 		os.Exit(1)
 	}
@@ -172,12 +179,14 @@ func createObjects(object string, fields []string, tagID int) {
 	amount, err := strconv.Atoi(input)
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Error while converting " + input + " from string to int")
 		os.Exit(1)
 	}
 
 	if amount <= 0 {
 		log.Error().
+			Err(err).
 			Msg("Only values above 0 allowed")
 		os.Exit(1)
 	}
@@ -192,6 +201,7 @@ func createObjects(object string, fields []string, tagID int) {
 			line, err := reader.ReadString('\n')
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while retrieving input")
 				os.Exit(1)
 			}
@@ -212,6 +222,7 @@ func createObjects(object string, fields []string, tagID int) {
 			createObject(object, tagID, userInput[0], userInput[1], userInput[2], userInput[3], userInput[4], userInput[5], userInput[6])
 		default:
 			log.Debug().
+				Err(err).
 				Msg("Invalid object " + object)
 			os.Exit(1)
 		}
@@ -232,12 +243,14 @@ func createObject(objectType string, tagID int, args ...string) int {
 	client, err := snmpsimclient.NewManagementClient(baseURL)
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Error while creating management client")
 		os.Exit(1)
 	}
 	err = client.SetUsernameAndPassword(username, password)
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Error while setting username and password")
 		os.Exit(1)
 	}
@@ -250,6 +263,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 		lab, err := client.CreateLabWithTag(args[0], tagID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating lab")
 			os.Exit(1)
 		}
@@ -260,6 +274,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 		agent, err := client.CreateAgentWithTag(args[0], args[1], tagID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating agent")
 			os.Exit(1)
 		}
@@ -269,6 +284,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 		labID, err := strconv.Atoi(args[2])
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while converting " + args[2] + "from string to int")
 			os.Exit(1)
 		}
@@ -277,6 +293,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 		err = client.AddAgentToLab(labID, agent.ID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while adding agent to lab")
 			os.Exit(1)
 		}
@@ -287,6 +304,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 		engine, err := client.CreateEngineWithTag(args[0], args[1], tagID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating engine")
 			os.Exit(1)
 		}
@@ -296,6 +314,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 		agentID, err := strconv.Atoi(args[2])
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while converting " + args[2] + "from string to int")
 			os.Exit(1)
 		}
@@ -304,6 +323,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 		err = client.AddEngineToAgent(agentID, engine.ID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while adding engine to agent")
 			os.Exit(1)
 		}
@@ -314,6 +334,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 		endpoint, err := client.CreateEndpointWithTag(args[0], args[1], args[2], tagID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating endpoint")
 			os.Exit(1)
 		}
@@ -323,6 +344,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 		engineID, err := strconv.Atoi(args[3])
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while converting " + args[3] + "from string to int")
 			os.Exit(1)
 		}
@@ -331,6 +353,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 		err = client.AddEndpointToEngine(engineID, endpoint.ID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while adding endpoint to engine")
 			os.Exit(1)
 		}
@@ -341,6 +364,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 		user, err := client.CreateUserWithTag(args[0], args[1], args[2], args[3], args[4], args[5], tagID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating user")
 			os.Exit(1)
 		}
@@ -350,6 +374,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 		engineID, err := strconv.Atoi(args[6])
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while converting " + args[6] + "from string to int")
 			os.Exit(1)
 		}
@@ -358,6 +383,7 @@ func createObject(objectType string, tagID int, args ...string) int {
 		err = client.AddUserToEngine(engineID, user.ID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while adding user to engine")
 			os.Exit(1)
 		}

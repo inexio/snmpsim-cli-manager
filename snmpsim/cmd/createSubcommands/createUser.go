@@ -25,12 +25,14 @@ var CreateUserCmd = &cobra.Command{
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -50,6 +52,7 @@ var CreateUserCmd = &cobra.Command{
 			tagID, err := cmd.Flags().GetInt("tag")
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while retrieving tagID")
 				os.Exit(1)
 			}
@@ -65,6 +68,7 @@ var CreateUserCmd = &cobra.Command{
 			_, err = client.GetTag(tagID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("No tag with the given id found")
 				os.Exit(1)
 			}
@@ -72,6 +76,7 @@ var CreateUserCmd = &cobra.Command{
 			user, err = client.CreateUserWithTag(userFlag, name, authKey, authProto, privKey, privProto, tagID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error during creation of the user")
 				os.Exit(1)
 			}
@@ -79,6 +84,7 @@ var CreateUserCmd = &cobra.Command{
 			user, err = client.CreateUser(userFlag, name, authKey, authProto, privKey, privProto)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error during creation of the user")
 				os.Exit(1)
 			}
@@ -93,6 +99,7 @@ var CreateUserCmd = &cobra.Command{
 			engineID, err := cmd.Flags().GetInt("engine")
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while retrieving engineID")
 				os.Exit(1)
 			}
@@ -101,6 +108,7 @@ var CreateUserCmd = &cobra.Command{
 			_, err = client.GetEngine(engineID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("No engine with the given id found")
 				os.Exit(1)
 			}
@@ -109,6 +117,7 @@ var CreateUserCmd = &cobra.Command{
 			err = client.AddUserToEngine(engineID, user.ID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while adding user to engine")
 				os.Exit(1)
 			}
@@ -122,6 +131,7 @@ func init() {
 	err := CreateUserCmd.MarkFlagRequired("user")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'user' flag required")
 		os.Exit(1)
 	}
@@ -130,6 +140,7 @@ func init() {
 	err = CreateUserCmd.MarkFlagRequired("authKey")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'authKey' flag required")
 		os.Exit(1)
 	}
@@ -138,6 +149,7 @@ func init() {
 	err = CreateUserCmd.MarkFlagRequired("authProto")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'authProto' flag required")
 		os.Exit(1)
 	}
@@ -146,6 +158,7 @@ func init() {
 	err = CreateUserCmd.MarkFlagRequired("privKey")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'privKey' flag required")
 		os.Exit(1)
 	}
@@ -154,6 +167,7 @@ func init() {
 	err = CreateUserCmd.MarkFlagRequired("privProto")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'privProto' flag required")
 		os.Exit(1)
 	}

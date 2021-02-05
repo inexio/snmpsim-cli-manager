@@ -25,12 +25,14 @@ var CreateEndpointCmd = &cobra.Command{
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -47,6 +49,7 @@ var CreateEndpointCmd = &cobra.Command{
 			tagID, err := cmd.Flags().GetInt("tag")
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while retrieving tagID")
 				os.Exit(1)
 			}
@@ -62,6 +65,7 @@ var CreateEndpointCmd = &cobra.Command{
 			_, err = client.GetTag(tagID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("No tag with the given id found")
 				os.Exit(1)
 			}
@@ -69,6 +73,7 @@ var CreateEndpointCmd = &cobra.Command{
 			endpoint, err = client.CreateEndpointWithTag(name, address, protocol, tagID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error during creation of the endpoint")
 				os.Exit(1)
 			}
@@ -76,6 +81,7 @@ var CreateEndpointCmd = &cobra.Command{
 			endpoint, err = client.CreateEndpoint(name, address, protocol)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error during creation of the endpoint")
 				os.Exit(1)
 			}
@@ -90,6 +96,7 @@ var CreateEndpointCmd = &cobra.Command{
 			engineID, err := cmd.Flags().GetInt("engine")
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while retrieving engine-id")
 				os.Exit(1)
 			}
@@ -98,6 +105,7 @@ var CreateEndpointCmd = &cobra.Command{
 			_, err = client.GetEngine(engineID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("No engine with the given id found")
 				os.Exit(1)
 			}
@@ -106,6 +114,7 @@ var CreateEndpointCmd = &cobra.Command{
 			err = client.AddEndpointToEngine(engineID, endpoint.ID)
 			if err != nil {
 				log.Error().
+					Err(err).
 					Msg("Error while adding endpoint to engine")
 				os.Exit(1)
 			}
@@ -119,6 +128,7 @@ func init() {
 	err := CreateEndpointCmd.MarkFlagRequired("address")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'address' flag required")
 		os.Exit(1)
 	}
@@ -127,6 +137,7 @@ func init() {
 	err = CreateEndpointCmd.MarkFlagRequired("protocol")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'protocol' flag required")
 		os.Exit(1)
 	}

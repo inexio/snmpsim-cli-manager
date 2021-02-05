@@ -27,12 +27,14 @@ var PacketsCmd = &cobra.Command{
 		client, err := snmpsimclient.NewMetricsClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error during creation of new metrics client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -45,12 +47,14 @@ var PacketsCmd = &cobra.Command{
 		packets, err = client.GetPackets(filters)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while getting packets")
 			os.Exit(1)
 		}
 		err = printData(packets, format, prettified, depth)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while printing data")
 			os.Exit(1)
 		}

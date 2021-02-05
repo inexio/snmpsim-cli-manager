@@ -26,12 +26,14 @@ var EngineFromAgentCmd = &cobra.Command{
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -40,6 +42,7 @@ var EngineFromAgentCmd = &cobra.Command{
 		engineID, err := cmd.Flags().GetInt("engine")
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while retrieving engineID")
 			os.Exit(1)
 		}
@@ -48,6 +51,7 @@ var EngineFromAgentCmd = &cobra.Command{
 		agentID, err := cmd.Flags().GetInt("agent")
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while retrieving agentID")
 			os.Exit(1)
 		}
@@ -56,6 +60,7 @@ var EngineFromAgentCmd = &cobra.Command{
 		err = client.RemoveEngineFromAgent(engineID, agentID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while removing the engine from the agent")
 			os.Exit(1)
 		}
@@ -69,6 +74,7 @@ func init() {
 	err := EngineFromAgentCmd.MarkFlagRequired("engine")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'engine' flag required")
 		os.Exit(1)
 	}
@@ -78,6 +84,7 @@ func init() {
 	err = EngineFromAgentCmd.MarkFlagRequired("agent")
 	if err != nil {
 		log.Error().
+			Err(err).
 			Msg("Could not mark 'agent' flag required")
 		os.Exit(1)
 	}

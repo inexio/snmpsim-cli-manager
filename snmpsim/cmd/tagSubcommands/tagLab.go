@@ -26,12 +26,14 @@ var TagLabCmd = &cobra.Command{
 		client, err := snmpsimclient.NewManagementClient(baseURL)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
 		err = client.SetUsernameAndPassword(username, password)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while setting username and password")
 			os.Exit(1)
 		}
@@ -40,6 +42,7 @@ var TagLabCmd = &cobra.Command{
 		tagID, err := cmd.Flags().GetInt("tag")
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while converting tagID from string to integer")
 			os.Exit(1)
 		}
@@ -48,6 +51,7 @@ var TagLabCmd = &cobra.Command{
 		labID, err := strconv.Atoi(args[0])
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while converting labID from string to integer")
 			os.Exit(1)
 		}
@@ -56,6 +60,7 @@ var TagLabCmd = &cobra.Command{
 		err = client.AddTagToLab(labID, tagID)
 		if err != nil {
 			log.Error().
+				Err(err).
 				Msg("Error while adding tag to the lab")
 			os.Exit(1)
 		}
