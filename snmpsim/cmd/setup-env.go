@@ -42,12 +42,14 @@ When invoked with '--env-config' flag it can read the data contained in the give
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
-		err = client.SetUsernameAndPassword(username, password)
-		if err != nil {
-			log.Error().
-				Err(err).
-				Msg("Error while setting username and password")
-			os.Exit(1)
+		if username != "" && password != "" {
+			err = client.SetUsernameAndPassword(username, password)
+			if err != nil {
+				log.Error().
+					Err(err).
+					Msg("Error while setting username and password")
+				os.Exit(1)
+			}
 		}
 
 		//Generate a new tag for the environment

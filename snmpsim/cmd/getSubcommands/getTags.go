@@ -33,12 +33,14 @@ All details of one specific tag can be retrieved via 'get tag <tag-id>'.`,
 				Msg("Error while creating management client")
 			os.Exit(1)
 		}
-		err = client.SetUsernameAndPassword(username, password)
-		if err != nil {
-			log.Error().
-				Err(err).
-				Msg("Error while setting username and password")
-			os.Exit(1)
+		if username != "" && password != "" {
+			err = client.SetUsernameAndPassword(username, password)
+			if err != nil {
+				log.Error().
+					Err(err).
+					Msg("Error while setting username and password")
+				os.Exit(1)
+			}
 		}
 
 		//Parse filters from flags

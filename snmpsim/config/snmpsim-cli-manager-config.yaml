@@ -1,8 +1,8 @@
 mgmt:
   http:
     baseUrl: <your baseUrl>
-    authUsername: <your username>
-    authPassword: <your password>
+    authUsername:
+    authPassword:
   rootDataDir: "management-api-test/"
   testTag: "management-api-test"
   protocol: "udpv4"
@@ -18,8 +18,8 @@ mgmt:
 metrics:
   http:
     baseUrl: <your baseUrl>
-    authUsername: <your username>
-    authPassword: <your password>
+    authUsername:
+    authPassword:
   rootDataDir: "metrics-api-test/"
   protocol: "udpv4"
   agent1:
