@@ -138,14 +138,7 @@ func init() {
 		os.Exit(1)
 	}
 
-	CreateUserCmd.Flags().String("authKey", "", "The authentication key of the user")
-	err = CreateUserCmd.MarkFlagRequired("authKey")
-	if err != nil {
-		log.Error().
-			Err(err).
-			Msg("Could not mark 'authKey' flag required")
-		os.Exit(1)
-	}
+
 
 	CreateUserCmd.Flags().String("authProto", "", "The authentication protocol of the user")
 	err = CreateUserCmd.MarkFlagRequired("authProto")
@@ -156,14 +149,7 @@ func init() {
 		os.Exit(1)
 	}
 
-	CreateUserCmd.Flags().String("privKey", "", "The private key of the user")
-	err = CreateUserCmd.MarkFlagRequired("privKey")
-	if err != nil {
-		log.Error().
-			Err(err).
-			Msg("Could not mark 'privKey' flag required")
-		os.Exit(1)
-	}
+
 
 	CreateUserCmd.Flags().String("privProto", "", "The private protocol of the user")
 	err = CreateUserCmd.MarkFlagRequired("privProto")
@@ -174,6 +160,8 @@ func init() {
 		os.Exit(1)
 	}
 
+	CreateUserCmd.Flags().String("privKey", "", "The private key of the user")
+	CreateUserCmd.Flags().String("authKey", "", "The authentication key of the user")
 	CreateUserCmd.Flags().Int("tag", 0, "Optional flag to mark an user with a tag (requires a tag-id)")
 	CreateUserCmd.Flags().Int("engine", 0, "Optional flag to add the user to an engine (requires an engine-id)")
 }
