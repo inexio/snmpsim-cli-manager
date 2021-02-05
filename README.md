@@ -38,8 +38,8 @@ and also enables you to:
 
 ## Requirements
 
-Requires a running instance of [snmpsim](https://github.com/etingof/snmpsim) and its
-[REST API server](https://github.com/etingof/snmpsim-control-plane).
+Requires a running instance of [snmpsim](https://github.com/inexio/snmpsim) and its
+[REST API server](https://github.com/inexio/snmpsim-control-plane).
 
 To check if your setup works, follow the steps provided in the **'Tests'** section of this document.
 
@@ -69,9 +69,8 @@ or you can compile it to a binary:
 
 ```
 cd snmpsim-cli-manager/snmpsim
-go install
-cd $GOBIN
-snmpsim  
+go build -o snmpsim main.go
+./snmpsim help
 ```
 
 After installing the tool you have to either declare a path to your config file or set certain environment variables for the tool to work.
@@ -144,7 +143,7 @@ The needed environment variables can then be added as follows:
 For the management endpoint:
 
 ```
-export SNMPSIM_CLI_MGMT_HTTP_BASEURL="<your mgmt baseUrl>"
+export SNMPSIM_CLI_MGMT_HTTP_BASEURL="http(s)://example.com:1234"
 export SNMPSIM_CLI_MGMT_HTTP_AUTHUSERNAME="<your username>"
 export SNMPSIM_CLI_MGMT_HTTP_AUTHPASSWORD="<your password>"
 ```
@@ -152,7 +151,7 @@ export SNMPSIM_CLI_MGMT_HTTP_AUTHPASSWORD="<your password>"
 and for the metrics endpoint:
 
 ```
-export SNMPSIM_CLI_METRICS_HTTP_BASEURL="<your metrics baseUrl>"
+export SNMPSIM_CLI_METRICS_HTTP_BASEURL="http(s)://example.com:1235"
 export SNMPSIM_CLI_METRICS_HTTP_AUTHUSERNAME="<your username>"
 export SNMPSIM_CLI_METRICS_HTTP_AUTHPASSWORD="<your password>"
 ```
@@ -165,7 +164,7 @@ When doing ```snmpsim help```, you can get information about all commands:
 The following section will show you how to create a lab and do various operations with it.
 
 ```go
-snmpsim create lab --name TestLab
+snmpsim create lab --name "TestLab"
 ```
 
 Should return:
@@ -227,7 +226,7 @@ Lab
 To create an agent use the following command:
 
 ```
-snmpsim create agent --name TestAgent --dataDir "/opt/snmpsim/data/agent1-test" 
+snmpsim create agent --name "TestAgent" --dataDir "/var/snmpsim/data/agent1-test" 
 ```
 
 which returns:
@@ -248,7 +247,7 @@ Agent 1 has been added to lab 1
 Alternativly, you can add a sub-component to its main-component while creating it:
 
 ```
-snmpsim create agent --name TestAgent --dataDir "/opt/snmpsim/data/agent1-test" --lab 1
+snmpsim create agent --name "TestAgent" --dataDir "/var/snmpsim/data/agent1-test" --lab 1
 ```
 
 And finally to remove a sub-component from its main-component use the remove command:
@@ -305,6 +304,11 @@ Labs(2)
 
 
     Tags(1)
+```
+
+How to create a user (for example you want a user with noAuthNoPriv)
+```
+snmpsim create user --user "<your-username>" --name "<your-name>" --authProto "none" --privProto "none"
 ```
 
 ## Getting Help
