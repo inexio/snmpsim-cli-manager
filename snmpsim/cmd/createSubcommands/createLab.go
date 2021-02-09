@@ -39,7 +39,6 @@ var CreateLabCmd = &cobra.Command{
 			}
 		}
 
-
 		//Read in the labs name
 		name := cmd.Flag("name").Value.String()
 
@@ -87,7 +86,6 @@ var CreateLabCmd = &cobra.Command{
 				os.Exit(1)
 			}
 		}
-
 		fmt.Println("Lab has been created successfully.")
 		fmt.Println("Id:", lab.ID)
 	},

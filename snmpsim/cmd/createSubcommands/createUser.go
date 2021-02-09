@@ -138,8 +138,6 @@ func init() {
 		os.Exit(1)
 	}
 
-
-
 	CreateUserCmd.Flags().String("authProto", "", "The authentication protocol of the user")
 	err = CreateUserCmd.MarkFlagRequired("authProto")
 	if err != nil {
@@ -148,8 +146,6 @@ func init() {
 			Msg("Could not mark 'authProto' flag required")
 		os.Exit(1)
 	}
-
-
 
 	CreateUserCmd.Flags().String("privProto", "", "The private protocol of the user")
 	err = CreateUserCmd.MarkFlagRequired("privProto")
